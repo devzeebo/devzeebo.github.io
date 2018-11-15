@@ -36,7 +36,7 @@ async function publishToMaster() {
   // keeping dist and index because we need them
   // keeping node_modules because we don't want to reinstall every time
   // keeping .git so we don't blow away the repo
-  rimraf.sync('!(dist*|index.html|node_modules*|.git*)');
+  rimraf.sync('!(dist*|index.html|node_modules*|.git*)', { glob: { dot: true, nosort: true, silent: true } });
 
   await Prompt('post rimraf/pre pop');
   await git.stash('pop');
