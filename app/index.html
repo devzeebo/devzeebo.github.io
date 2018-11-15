@@ -1,0 +1,15 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <% if (webpackConfig.mode == 'production') { %>
+  <base href="<%= htmlWebpackPlugin.options.baseUrl %>" />
+  <% } %>
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+</head>
+
+<body></body>
+
+</html>
