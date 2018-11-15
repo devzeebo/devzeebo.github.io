@@ -20,8 +20,8 @@ async function publishToMaster() {
   await git.checkout('master');
   await git.merge(['develop', '-Xtheirs', '-m', commitMessage]);
 
-  await rimraf('dist');
-  await rimraf('index.html');
+  rimraf.sync('dist');
+  rimraf.sync('index.html');
 
   await git.stash('pop');
   await git.add('./*');
