@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 const git = require('simple-git')();
+const rimraf = require('rimraf');
 const readline = require('readline').createInterface({ input: process.stdin, output: process.stdout });
 
 git.status((err, status) => {
@@ -9,9 +10,15 @@ git.status((err, status) => {
 });
 
 readline.question('Commit message: ', (msg) => {
-  git.checkout('master')
-    .merge('develop', (err, data) => { console.error(err); console.log(data); })
-    .add('./*', (err, data) => { console.error(err); console.log(data); })
+  git
+    .stash('--include-untracked', (err, data) => { console.error(err); console.log(data); })
+    .checkout('master', (err, data) => { console.error(err); console.log(data); })
+    .merge('develop', '-Xtheirs', (err, data) => { console.error(err); console.log(data); });
+
+  rimraf('dist');
+  rimraf('index.html');
+
+  git.stash('pop', (err, data) => { console.error(err); console.log(data); })
     .commit(msg, (err, data) => { console.error(err); console.log(data); })
     .push('origin', 'master', (err, data) => { console.error(err); console.log(data); })
     .checkout('develop', (err, data) => { console.error(err); console.log(data); });
