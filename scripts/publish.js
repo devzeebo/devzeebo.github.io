@@ -1,27 +1,30 @@
 // eslint-disable-next-line
-const git = require('simple-git')();
+const git = require('simple-git/promise')();
 // eslint-disable-next-line
 const rimraf = require('rimraf');
 const readline = require('readline').createInterface({ input: process.stdin, output: process.stdout });
 
-git.status((err, status) => {
+async function publishToMaster() {
+  const status = await git.status();
   if (status.modified.length) {
     throw new Error('Develop has uncommitted changes');
   }
-});
 
-readline.question('Commit message: ', (msg) => {
-  git.stash('--include-untracked', (err, data) => { console.error(err); console.log(data); });
-  git.checkout('master', (err, data) => { console.error(err); console.log(data); });
-  git.merge('develop', '-Xtheirs', (err, data) => { console.error(err); console.log(data); });
+  readline.question('Commit message: ', (msg) => {
+    await git.stash('--include-untracked');
+    await git.checkout('master');
+    await git.merge('develop', '-Xtheirs');
 
-  rimraf.sync('dist');
-  rimraf.sync('index.html');
+    await rimraf('dist');
+    await rimraf('index.html');
 
-  git.stash('pop', (err, data) => { console.error(err); console.log(data); });
-  git.commit(msg, (err, data) => { console.error(err); console.log(data); });
-  git.push('origin', 'master', (err, data) => { console.error(err); console.log(data); });
-  git.checkout('develop', (err, data) => { console.error(err); console.log(data); });
+    await git.stash('pop');
+    await git.commit(msg);
+    await git.push('origin', 'master');
+    await git.checkout('develop');
 
-  readline.close();
-});
+    readline.close();
+  });
+}
+
+publishToMaster();
