@@ -18,13 +18,14 @@ async function publishToMaster() {
   });
   await git.stash({ '--include-untracked': null });
   await git.checkout('master');
-  await git.merge('develop', '-Xtheirs');
+  await git.merge(['develop', '-Xtheirs', '-m', commitMessage]);
 
   await rimraf('dist');
   await rimraf('index.html');
 
   await git.stash('pop');
-  await git.commit(commitMessage);
+  await git.add('./*');
+  await git.commit(commitMessage, [], { '--amend': null });
   await git.push('origin', 'master');
   await git.checkout('develop');
 }
