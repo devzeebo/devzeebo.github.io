@@ -15,4 +15,6 @@ readline.question('Commit message: ', (msg) => {
     .commit(msg)
     .push('origin', 'master')
     .checkout('develop');
+
+  readline.close();
 });
