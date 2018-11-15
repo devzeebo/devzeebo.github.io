@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 // const webpack = require('webpack');
 
@@ -8,7 +9,8 @@ module.exports = {
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
-    filename: 'blog.js',
+    filename: 'blog.[contenthash].js',
+    publicPath: 'dist',
   },
   optimization: {
     minimizer: [

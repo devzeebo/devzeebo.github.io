@@ -4,6 +4,7 @@ module.exports = {
   parser: 'babel-eslint',
   env: {
     browser: true,
+    node: true,
   },
   rules: {
     'import/default': ['error'],
@@ -24,8 +25,9 @@ module.exports = {
     'lodash/prefer-includes': 'off',
     'lodash/prefer-lodash-typecheck': 'off',
     'lodash/matches-prop-shorthand': 'off',
-    'no-unused-expressions': [2, { allowShortCircuit: true, allowTernary: true }],
-    'no-return-assign': [2, 'except-parens'],
+    'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
+    'no-return-assign': ['error', 'except-parens'],
     'radix': 'off',
+    'class-methods-use-this': 'off',
   },
 };

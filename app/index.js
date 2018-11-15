@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-  static render() {
+  render() {
     return (
       <div>
         Hello World!
@@ -13,11 +13,7 @@ class App extends React.Component {
 export default App;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const target = document.getElementById('app');
-  // render app
-  if (target) {
-    ReactDOM.render(<App />, target);
-  } else {
-    console.warn('tried to load React and failed :(');
-  }
+  const target = document.createElement('div');
+  document.body.appendChild(target);
+  ReactDOM.render(<App />, target);
 });
