@@ -6,8 +6,9 @@ const readline = require('readline').createInterface({ input: process.stdin, out
 
 function Prompt(prompt) {
   return new Promise((resolve) => {
+    readline.resume();
     readline.question(prompt, (msg) => {
-      readline.close();
+      readline.pause();
       resolve(msg);
     });
   });
@@ -47,6 +48,8 @@ async function publishToMaster() {
   await git.push('origin', 'master');
   await Prompt('Press Enter');
   await git.checkout('develop');
+
+  readline.close();
 }
 
 publishToMaster();
