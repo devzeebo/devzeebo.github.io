@@ -16,7 +16,7 @@ async function publishToMaster() {
       resolve(msg);
     });
   });
-  await git.stash('--include-untracked');
+  await git.stash({ '--include-untracked': null });
   await git.checkout('master');
   await git.merge('develop', '-Xtheirs');
 
