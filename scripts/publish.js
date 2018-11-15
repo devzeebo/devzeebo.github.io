@@ -25,15 +25,7 @@ async function publishToMaster() {
     // eslint-disable-next-line
   } finally { }
 
-  rimraf.sync('dist');
-  rimraf.sync('index.html');
-  rimraf.sync('app');
-  rimraf.sync('scripts');
-  rimraf.sync('.babelrc');
-  rimraf.sync('.eslint*');
-  rimraf.sync('package-lock.json');
-  rimraf.sync('package.json');
-  rimraf.sync('webpack*');
+  rimraf.sync('!(dist/*|index.html)');
 
   await git.stash('pop');
   await git.add('./*');
