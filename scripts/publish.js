@@ -15,8 +15,8 @@ readline.question('Commit message: ', (msg) => {
     .checkout('master', (err, data) => { console.error(err); console.log(data); })
     .merge('develop', '-Xtheirs', (err, data) => { console.error(err); console.log(data); });
 
-  rimraf('dist');
-  rimraf('index.html');
+  rimraf.sync('dist');
+  rimraf.sync('index.html');
 
   git.stash('pop', (err, data) => { console.error(err); console.log(data); })
     .commit(msg, (err, data) => { console.error(err); console.log(data); })
