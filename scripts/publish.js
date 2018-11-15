@@ -20,7 +20,8 @@ async function publishToMaster() {
     throw new Error('Develop has uncommitted changes');
   }
 
-  await git.stash({ '--include-untracked': null });
+  await git.add('./*');
+  await git.stash();
   // await Prompt('Post stash/Pre checkout master');
   await git.checkout('master');
   // await Prompt('Post checkout master/pre pull o m');
@@ -34,7 +35,6 @@ async function publishToMaster() {
   await Prompt('post rimraf/pre pop');
   await git.stash('pop');
   await Prompt('post pop/pre add');
-  await git.add('./*');
   const commitMessage = await Prompt('Commit message: ');
   await git.commit(commitMessage);
   await Prompt('post commit/pre push');
