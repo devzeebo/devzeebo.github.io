@@ -25,7 +25,10 @@ async function publishToMaster() {
     // eslint-disable-next-line
   } finally { }
 
-  rimraf.sync('!(dist/*|index.html)');
+  // keeping dist and index because we need them
+  // keeping node_modules because we don't want to reinstall every time
+  // keeping .git so we don't blow away the repo
+  rimraf.sync('!(dist*|index.html|node_modules*|.git*)');
 
   await git.stash('pop');
   await git.add('./*');
