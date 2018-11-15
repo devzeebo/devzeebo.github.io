@@ -31,15 +31,15 @@ async function publishToMaster() {
   // keeping .git so we don't blow away the repo
   rimraf.sync('!(node_modules*|.git*)', { glob: { dot: true, nosort: true, silent: true } });
 
-  // await Prompt('post rimraf/pre pop');
+  await Prompt('post rimraf/pre pop');
   await git.stash('pop');
-  // await Prompt('post pop/pre add');
+  await Prompt('post pop/pre add');
   await git.add('./*');
   const commitMessage = await Prompt('Commit message: ');
   await git.commit(commitMessage);
-  // await Prompt('post commit/pre push');
+  await Prompt('post commit/pre push');
   await git.push('origin', 'master');
-  // await Prompt('post push/pre checkout develop');
+  await Prompt('post push/pre checkout develop');
   await git.checkout('develop');
 
   readline.close();
