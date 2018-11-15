@@ -10,21 +10,23 @@ async function publishToMaster() {
     throw new Error('Develop has uncommitted changes');
   }
 
-  readline.question('Commit message: ', (msg) => {
-    await git.stash('--include-untracked');
-    await git.checkout('master');
-    await git.merge('develop', '-Xtheirs');
-
-    await rimraf('dist');
-    await rimraf('index.html');
-
-    await git.stash('pop');
-    await git.commit(msg);
-    await git.push('origin', 'master');
-    await git.checkout('develop');
-
-    readline.close();
+  const commitMessage = await new Promise((resolve) => {
+    readline.question('Commit message: ', (msg) => {
+      readline.close();
+      resolve(msg);
+    });
   });
+  await git.stash('--include-untracked');
+  await git.checkout('master');
+  await git.merge('develop', '-Xtheirs');
+
+  await rimraf('dist');
+  await rimraf('index.html');
+
+  await git.stash('pop');
+  await git.commit(commitMessage);
+  await git.push('origin', 'master');
+  await git.checkout('develop');
 }
 
 publishToMaster();
