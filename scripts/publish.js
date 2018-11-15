@@ -18,6 +18,7 @@ async function publishToMaster() {
   });
   await git.stash({ '--include-untracked': null });
   await git.checkout('master');
+  await git.pull('origin', 'master', { '-XTheirs': null });
   await git.merge(['develop', '-Xtheirs', '-m', commitMessage]);
 
   rimraf.sync('dist');
