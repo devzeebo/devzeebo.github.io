@@ -29,6 +29,7 @@ async function publishToMaster() {
   rimraf.sync('!(node_modules*|.git*|.build*)', { glob: { dot: true, nosort: true, silent: true } });
   fs.renameSync('.build/dist', 'dist');
   fs.renameSync('.build/index.html', 'index.html');
+  rimraf.sync('.build', { glob: { dot: true, silent: true } });
 
   await git.add('./*');
   const commitMessage = await Prompt('Commit message: ');
