@@ -10,7 +10,7 @@ module.exports = {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
     filename: 'blog.[contenthash].js',
-    publicPath: 'dist',
+    publicPath: '.build/dist',
   },
   optimization: {
     minimizer: [
