@@ -12,6 +12,9 @@ const htmlPlugin = new HtmlWebpackPlugin({
 });
 
 module.exports = merge(common, {
+  output: {
+    publicPath: '.build/dist',
+  },
   mode: 'production',
   plugins: [
     htmlPlugin,
