@@ -8,8 +8,8 @@
     "clean": "rimraf dist && rimraf .build && rimraf index.html",
     "build:dev": "npm run clean && webpack --config webpack.dev.js",
     "build:dev:watch": "npm run clean && webpack --watch --config webpack.dev.js",
-    "build:prod": "npm run clean && webpack --config webpack.dev.js",
-    "build:prod:watch": "npm run clean && webpack --watch --config webpack.dev.js",
+    "build:prod": "npm run clean && webpack --config webpack.prod.js",
+    "build:prod:watch": "npm run clean && webpack --watch --config webpack.prod.js",
     "publish": "npm run build:prod && node scripts/publish.js"
   },
   "repository": {
