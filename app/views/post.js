@@ -23,7 +23,7 @@ class PostView extends React.Component {
 
   render() {
     return (
-      <ReactMarkdown source={this.state.source} />
+      <ReactMarkdown source={this.state.source} className="markdown-body" />
     );
   }
 }
