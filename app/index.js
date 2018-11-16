@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// eslint-disable-next-line
+import PostView from './views/post';
+
 class App extends React.Component {
   render() {
     return (
-      <div>
-        Hello Github pages!
-      </div>
+      <PostView />
     );
   }
 }
