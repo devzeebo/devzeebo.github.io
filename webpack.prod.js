@@ -8,7 +8,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
   title: 'devzeebo.com',
   filename: '../index.html',
   template: './app/index.html',
-  baseUrl: '://devzeebo.github.io',
+  baseUrl: '//devzeebo.github.io',
   inject: 'head',
 });
 
