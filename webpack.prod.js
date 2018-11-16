@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 const common = require('./webpack.common.js');
 
 const htmlPlugin = new HtmlWebpackPlugin({
@@ -13,7 +14,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
 
 module.exports = merge(common, {
   output: {
-    publicPath: '.build/dist',
+    path: path.resolve(__dirname, '.build/dist'),
   },
   mode: 'production',
   plugins: [
