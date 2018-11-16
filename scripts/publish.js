@@ -21,12 +21,13 @@ async function publishToMaster() {
   }
 
   await git.add('./*');
+  await Prompt('Post add/pre stash');
   await git.stash();
-  // await Prompt('Post stash/Pre checkout master');
+  await Prompt('Post stash/Pre checkout master');
   await git.checkout('master');
-  // await Prompt('Post checkout master/pre pull o m');
+  await Prompt('Post checkout master/pre pull o m');
   await git.pull('origin', 'master', { '-XTheirs': null });
-  // await Prompt('Post checkout master/pre rimraf');
+  await Prompt('Post checkout master/pre rimraf');
 
   // keeping node_modules because we don't want to reinstall every time
   // keeping .git so we don't blow away the repo
