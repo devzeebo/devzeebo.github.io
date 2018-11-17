@@ -7,7 +7,6 @@ import axios from 'axios';
 import PostView from './views/post';
 import HomeView from './views/home';
 
-
 class App extends React.Component {
   constructor() {
     super();
@@ -27,14 +26,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <PostContext.Provider value={this.state}>
-        <Router>
-          <Switch>
-            <Route path="/" exact component={HomeView} />
-            <Route path="/post/:slug" exact component={PostView} />
-          </Switch>
-        </Router>
-      </PostContext.Provider>
+      <Router>
+        <Switch>
+          <Route path="/" exact component={HomeView} />
+          <Route path="/post/:slug" exact component={PostView} />
+        </Switch>
+      </Router>
     );
   }
 }
