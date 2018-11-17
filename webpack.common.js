@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-// const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -9,8 +9,7 @@ module.exports = {
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
-    filename: 'blog.[contenthash].js',
-    publicPath: 'dist',
+    filename: 'blog.[hash].js',
   },
   optimization: {
     minimizer: [
@@ -19,6 +18,12 @@ module.exports = {
       }),
     ],
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: 'app/404.html' },
+      { from: 'posts/*' },
+    ]),
+  ],
   resolve: {
     extensions: ['.js'],
   },

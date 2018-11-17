@@ -1,11 +1,15 @@
 import React from 'react';
-// eslint-disable-next-line
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class PostView extends React.Component {
-  constructor() {
-    super();
+  static propTypes = {
+    match: PropTypes.any,
+  }
+
+  constructor(props) {
+    super(props);
 
     this.state = {
       source: '',
@@ -13,11 +17,13 @@ class PostView extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('posts/post1.md')
+    const markdown = `${this.context.posts[this.props.match.params.slug]}.md`;
+    axios.get(`posts/${markdown}`)
       .then((res) => {
         this.setState({
           source: res.data,
         });
+        document.title = this.props.match.params.slug;
       });
   }
 

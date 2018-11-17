@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const common = require('./webpack.common.js');
 
 const htmlPlugin = new HtmlWebpackPlugin({
-  title: 'devzeebo.com',
-  filename: '../index.html',
+  baseUrl: '/',
+  filename: 'index.html',
   template: './app/index.html',
   inject: 'head',
 });
@@ -16,4 +16,9 @@ module.exports = merge(common, {
   plugins: [
     htmlPlugin,
   ],
+  devServer: {
+    port: 3000,
+    historyApiFallback: true,
+    index: 'index.html',
+  },
 });

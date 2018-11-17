@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['airbnb/base', 'plugin:lodash/recommended', 'plugin:import/errors', 'plugin:import/warnings'],
+  extends: ['airbnb/base', 'plugin:lodash/recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:react/recommended'],
   parser: 'babel-eslint',
   env: {
     browser: true,
