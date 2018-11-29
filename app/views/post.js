@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import styled from 'styled-components';
@@ -13,13 +12,9 @@ const FiraReactMarkdown = styled(ReactMarkdown)`
   }
 `;
 
-class PostView extends React.Component {
-  static propTypes = {
-    match: PropTypes.any,
-  }
-
+class PostComponent extends React.Component {
   componentDidMount() {
-    this.props.loadPost(this.props.match.params.slug, this.props.filename);
+    this.props.loadPost(this.props.slug);
   }
 
   render() {
@@ -33,10 +28,12 @@ class PostView extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  filename: state.postLookup[ownProps.match.params.slug],
-  content: state.posts[ownProps.match.params.slug],
+  content: state.posts[ownProps.slug],
 });
 const mapDispatchToProps = dispatch => ({
-  loadPost: (slug, filename) => dispatch(loadPost(slug, filename)),
+  loadPost: slug => dispatch(loadPost(slug)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(PostView);
+export const Post = connect(mapStateToProps, mapDispatchToProps)(PostComponent);
+export const PostView = ({ match: { params: { slug } } }) => (
+  <Post slug={slug} />
+);

@@ -12,7 +12,7 @@ import reducers from './reducers';
 import Header from './components/header';
 import HighlightJs from './components/highlight-js';
 
-import PostView from './views/post';
+import { PostView } from './views/post';
 import HomeView from './views/home';
 
 // eslint-disable-next-line
