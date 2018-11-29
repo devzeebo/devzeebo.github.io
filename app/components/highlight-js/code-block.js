@@ -1,15 +1,6 @@
 const React = require('react');
 
 class CodeBlock extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.setRef = this.setRef.bind(this);
-  }
-
-  setRef(el) {
-    this.codeEl = el;
-  }
-
   componentDidMount() {
     this.highlightCode();
   }
@@ -32,7 +23,7 @@ class CodeBlock extends React.PureComponent {
   render() {
     return (
       <pre>
-        <code ref={this.setRef} className={`language-${this.props.language}`}>
+        <code ref={ref => (this.codeEl = ref)} className={`language-${this.props.language}`}>
           {this.props.value}
         </code>
       </pre>
