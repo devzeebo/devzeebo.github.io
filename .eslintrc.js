@@ -29,5 +29,7 @@ module.exports = {
     'no-return-assign': ['error', 'except-parens'],
     'radix': 'off',
     'class-methods-use-this': 'off',
+    'react/prop-types': 'off',
+    'lodash/prefer-constant': 'off'
   },
 };

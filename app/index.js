@@ -2,36 +2,42 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch } from 'react-router';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
+
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+
+import reducers from './reducers';
+
+import Header from './components/header';
+import HighlightJs from './components/highlight-js';
 
 import PostView from './views/post';
 import HomeView from './views/home';
 
+// eslint-disable-next-line
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(
+  applyMiddleware(thunk),
+));
+
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      posts: {},
-    };
-  }
-
-  componentDidMount() {
-    axios.get('posts/posts.json')
-      .then((res) => {
-        this.setState({
-          posts: res.data,
-        });
-      });
-  }
-
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route path="/" exact component={HomeView} />
-          <Route path="/post/:slug" exact component={PostView} />
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <React.Fragment>
+            <Header />
+
+            <HighlightJs />
+
+            <Switch>
+              <Route path="/" exact component={HomeView} />
+              <Route path="/post/:slug" exact component={PostView} />
+            </Switch>
+          </React.Fragment>
+        </Router>
+      </Provider>
     );
   }
 }
