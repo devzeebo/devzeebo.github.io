@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { mobile, desktop } from './media';
 
@@ -24,7 +25,11 @@ const Title = styled.div`
 
 const Header = () => (
   <Container>
-    <Title>/dev/zeebo</Title>
+    <Title>
+      <Link to="/">
+        /dev/zeebo
+      </Link>
+    </Title>
   </Container>
 );
 export default Header;
