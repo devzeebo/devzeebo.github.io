@@ -10,7 +10,7 @@
     "build:dev:watch": "npm run clean && webpack --config webpack.dev.js --watch",
     "build:dev:server": "webpack-dev-server --config webpack.dev.js --hot --content-base ./dist",
     "build:prod": "npm run clean && webpack --config webpack.prod.js",
-    "publish": "npm run build:prod && NODE_DEBUG=gh-pages node ./scripts/publish.js"
+    "publish": "npm run build:prod && cross-env NODE_DEBUG=gh-pages node ./scripts/publish.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "babel-loader": "^8.0.4",
     "babel-polyfill": "^6.26.0",
     "copy-webpack-plugin": "^4.6.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-loader": "^2.1.1",
