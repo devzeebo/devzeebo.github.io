@@ -2,10 +2,11 @@ export default {
   postLookup: {
     welcome: 'welcome.md',
     'test-post': 'testPost.md',
+    'exceptions-are-exceptional': 'exceptionsAreExceptional.md',
   },
   homePage: [
     'welcome',
-    'test-post',
+    'exceptions-are-exceptional',
   ],
   posts: {},
 };
