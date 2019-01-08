@@ -131,11 +131,44 @@ implement the business case. If you compare our implementation with the pseudo c
 ### _By wrapping our code in `Result<T>`, we assume the exception case is the norm._
 
 We then clutter up our code by checking each and every result, assuming it failed. We can't move on until we've
-guaranteed that the result _didn't fail_. It's exhausting! What if instead, we assumed that the result was
-successful, and in the case it isn't we handle the _exceptional_ case? It's right in the name: the case of
-failure, the _Exception_, is NOT the default case. Why are we treating the Exception case as the default?
-In the event of a business logic failure (i.e. the session's cart id doesn't exist), we can handle that in the
-service and throw a tailored exception detailing what went wrong, and let the code calling it decide if it
+guaranteed that the result _didn't fail_. It's exhausting!
+
+## It Gets Worse
+
+This is only one layer deep. Imagine a situation where you have multiple layers of these `Result<T>` responses.
+You now have the task of converting a `Result<A>` to a `Result<B>` in the case of exceptions and failures, and
+lose the context that it was the `Result<A>` that actually failed, as your `Result<B>` hides the underlying
+error and instead pretends that it itself failed with the same exception or failure message that the `Result<A>`
+had!
+
+Not only do you have to check every step for failure, you also have to convert it on failure. What if I can
+handle the case where the cart doesn't exist, but if the products don't exist I should throw the exception?
+Now we have two choices, create manual exceptions or do string comparison on the `FailureMessage` property.
+String comparison is smelly, and if we're going to make manual exceptions, it isn't a 500, but a 400, and now
+we have more convoluted logic determining a business logic error and a real exception.
+
+By just throwing an exception the code is both readable and _assumes everything succeeds_. If we want to, we
+can optionally handle the specific exception we know we can handle, and let all other _exceptional_ cases
+be unhandled to be picked up by the global exception handler.
+
+Another point of confusion comes when you start returning `Result<T>` over HTTP. HTTP already has status
+code reporting built in. So now you have two options (neither of which is very good):
+
+1. **Return a 200 with a body that indicates an error.**
+   Unless you're intimately familiar with the API, you're not going to know that a 200 can actually be an
+   error until the API unexpectedly returns an error and your client code blows up because `result` is null
+2. **Return either a 400 or 500 with a body that has another level of indirection**
+   We're double encoding the information. Should we trust the HTTP status code or the status code in the
+   response? What if we receive a 500 that isn't in that format? Now our client code has to handle two
+   different exception message formats for 500's, or not at all.
+
+
+## A Better Way
+
+What if, instead, we assumed that the result of the service call was successful?
+It's right in the name: an _Exception_ is NOT normal, so why are we treating the Exception case as the default?
+In the event of a business logic failure (i.e. the session's cart id doesn't exist), we can handle
+that in the service and throw a tailored exception detailing what went wrong, and let the code calling it decide if it
 even wants to handle that specific exception.
 
 ```csharp
@@ -147,9 +180,11 @@ public class CartService {
       .ToList();
 
     if (carts.Count == 0) {
+      // or a CartNotFoundException
       throw new BusinessLogicException("Cart not found");
     }
     if (carts.Count > 1) {
+      // maybe an AmbiguousCartException?
       throw new BusinessLogicException("More than one cart with id found");
     }
 
@@ -183,9 +218,9 @@ public CartModel GetCartModel(SessionData session) {
 ```
 
 Look at how much cleaner and easier to read the code is! We can easily discern the business case this method
-expects and we can write unit tests detailing what we expect to happen when things don't go as planned.
-We can also now write a single exception middleware to catch our exceptions and return responses without
-duplicating logic in all of our controller code:
+expects and we can write unit tests detailing what we expect to happen when in the exceptional cases.
+We can also now write a single exception middleware to catch our exceptions across all controllers and return responses
+without duplicating  the exception handling logic in all of our controller code:
 
 ```csharp
 // pseudo code for exception handler middleware
@@ -195,46 +230,23 @@ public void HandleException(ExceptionContext context) {
 }
 ```
 
-### _Exceptional cases should either be explicitly handled or not acknowledged_
+### _Exceptional cases should either be explicitly handled or completely ignored_
 
-## It Gets Worse
-
-This is only one layer deep. Imagine a situation where you have multiple layers of these `Result<T>` responses.
-You now have the task of converting a `Result<A>` to a `Result<B>` in the case of exceptions and failures, and
-lose the context that it was the `Result<A>` that actually failed, as your `Result<B>` hides the underlying
-error and instead pretends that it itself failed with the same exception or failure message that the `Result<A>`
-had!
-
-Not only do you have to check every step for failure, you also have to convert it on failure. What if I can
-handle the case where the cart doesn't exist, but if the products don't exist I should throw the exception?
-Now we have two choices, create manual exceptions or do string comparison on the `FailureMessage` property.
-String comparison is smelly, and if we're going to make manual exceptions, it isn't a 500, but a 400, and now
-we have more convoluted logic determining a business logic error and a real exception.
-
-By just throwing an exception the code is both readable and _assumes everything succeeds_. If we want to, we
-can optionally handle the specific exception we know we can handle, and let all other _exceptional_ cases
-be unhandled to be picked up by the global exception handler.
-
-Another point of confusion comes when you start returning `Result<T>` over HTTP. HTTP already has status
-code reporting built in. So now you have two options (neither of which is very good):
-
-1. **Return a 200 with a body that indicates an error.**
-   Unless you're intimately familiar with the API, you're not going to know that a 200 can actually be an
-   error until the API unexpectedly returns an error and your client code blows up because `result` is null
-2. **Return either a 400 or 500 with a body that has another level of indirection**
-   We're double encoding the information. Should we trust the HTTP status code or the status code in the
-   response? What if we receive a 500 that isn't in that format? Now our client code has to handle two
-   different exception message formats for 500's, or not at all.
+In the case of the two user service queries, it probably isn't an error to not have saved shipping information or credit
+cards, so _we shouldn't throw errors if its not an error_. If it isn't exceptional, just return `default` or if you're
+feeling particularly functional, an empty object. There's no logic to be performed even if it does fail, so why should
+we care if its not there?
 
 ## Conclusion
 
 When we analyze business requirements and discuss them with non-technical people, we have to poke and prod
 to discover the edge cases that aren't part of the happy path. Why then do we then assume that our code
-needs to handle all the exceptional cases? If it isn't part of the business requirements to handle a
-specific case, let the exception bubble up. If we can generate a readable message so the user can take
-action, then we're already catching and generating a pretty error message which is NOT an unhandled
-exception, and is often the user's fault in the form of bad inputs. For unhandled exceptions, log it for
-later analysis, and let the user know that it WAS NOT THEIR FAULT and that you're looking in to it.
+should be terrified of all the exceptional cases? If it isn't part of the business requirements to handle a
+specific case, let the exception bubble up. Don't "log and throw" for the sake of "handling" the exception
+If we can generate a readable message so the user can take action, then we're already catching and generating
+a pretty error message which is NOT an unhandled exception, and is often the user's fault in the form of bad
+inputs. For unhandled exceptions, log it for later analysis, and let the user know that it WAS NOT THEIR FAULT
+and that you're looking in to it.
 
 This significantly simplifies error handling code as you only have two cases: Bad requests have a uniform
 shape and can be fed into a nice dialog or notification, and internal server errors are easy to identify
