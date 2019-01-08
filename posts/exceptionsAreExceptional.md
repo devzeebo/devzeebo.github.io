@@ -3,7 +3,15 @@
 Recently I've encountered a lot of code that uses some variation of the pseudo
 [Operational Result](https://medium.com/@cummingsi1993/the-operation-result-pattern-a-simple-guide-fe10ff959080) pattern.
 While it can be useful to encapsulate your business logic into common response formats, it can also lead to 
-unnecessarily complex code.
+unnecessarily complex code. I wouldn't go so far as to call operational results an anti-pattern, but they're close.
+
+## TL;DR
+
+1. Assume the happy path is the normal path through the code
+2. Only catch exceptions that you can actually recover from (e.g. don't "log and throw")
+3. Only throw an exception if something violates a business constraint (e.g. no duplicate ids, requesting an id that doesn't exist)
+
+## An Example
 
 Let's look at some code. E-Commerce is a common business and fairly easy to pick up as a domain, so we'll
 pretend we're "Online Business" selling "Things". When a customer arrives at our site, they add some "Things"
@@ -125,13 +133,17 @@ public CartModel GetCartModel(SessionData session) {
 }
 ```
 
-While this is correct code, it isn't easy to read or understand why business cases are the way they are. Comments could help, but then the code isn't self documenting. The reason for this disconnect is we didn't
-implement the business case. If you compare our implementation with the pseudo code, the difference is apparent.
+While this is correct code, it isn't easy to read or understand why business cases are the way they are.
+Comments could help, but then the code isn't self documenting. The reason for this disconnect is we didn't
+implement the business case. There are 3 different return points from that method, and each one represents
+a partial view of the story. If you compare our implementation with the pseudo code, the difference is apparent:
 
 ### _By wrapping our code in `Result<T>`, we assume the exception case is the norm._
 
-We then clutter up our code by checking each and every result, assuming it failed. We can't move on until we've
-guaranteed that the result _didn't fail_. It's exhausting!
+By assuming the exception is normal, we clutter up our code by checking each and every result,
+assuming it failed because we can't move on until we've guaranteed that the result _didn't_ fail.
+It's exhausting!
+
 
 ## It Gets Worse
 
@@ -237,7 +249,7 @@ cards, so _we shouldn't throw errors if its not an error_. If it isn't exception
 feeling particularly functional, an empty object. There's no logic to be performed even if it does fail, so why should
 we care if its not there?
 
-## Conclusion
+## Conclusions
 
 When we analyze business requirements and discuss them with non-technical people, we have to poke and prod
 to discover the edge cases that aren't part of the happy path. Why then do we then assume that our code

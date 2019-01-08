@@ -11,6 +11,7 @@ const Container = styled.div`
   padding-left: 1em;
 
   ${mobile} {
+    margin-top: 1em;
   }
 
   ${desktop} {
