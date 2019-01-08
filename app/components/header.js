@@ -8,9 +8,9 @@ const Container = styled.div`
 
   display: flex;
   align-items: center;
+  padding-left: 1em;
 
   ${mobile} {
-
   }
 
   ${desktop} {

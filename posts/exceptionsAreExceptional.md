@@ -230,7 +230,7 @@ public void HandleException(ExceptionContext context) {
 }
 ```
 
-### _Exceptional cases should either be explicitly handled or not even acknowledged_
+### _Exceptional cases should either be explicitly handled or completely ignored_
 
 In the case of the two user service queries, it probably isn't an error to not have saved shipping information or credit
 cards, so _we shouldn't throw errors if its not an error_. If it isn't exceptional, just return `default` or if you're
