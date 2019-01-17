@@ -1,12 +1,13 @@
 export default {
   postLookup: {
     welcome: 'welcome.md',
-    'test-post': 'testPost.md',
+    'nunit-and-threadlocal': 'nunitAndThreadlocal.md',
     'exceptions-are-exceptional': 'exceptionsAreExceptional.md',
   },
   homePage: [
-    'welcome',
+    'nunit-and-threadlocal',
     'exceptions-are-exceptional',
+    'welcome',
   ],
   posts: {},
 };
