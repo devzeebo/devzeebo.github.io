@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   postLookup: {
     welcome: 'welcome.md',
     'test-post': 'testPost.md',

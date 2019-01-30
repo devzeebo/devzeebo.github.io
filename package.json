@@ -10,7 +10,7 @@
     "build:dev:watch": "npm run clean && webpack --config webpack.dev.js --watch",
     "build:dev:server": "webpack-dev-server --config webpack.dev.js --hot --content-base ./dist",
     "build:prod": "npm run clean && webpack --config webpack.prod.js",
-    "publish": "npm run build:prod && cross-env NODE_DEBUG=gh-pages node ./scripts/publish.js"
+    "publish": "npm run build:prod && cross-env NODE_DEBUG=gh-pages node ./build/publish.js"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "gh-pages": "^2.0.1",
     "html-webpack-plugin": "^3.2.0",
     "rimraf": "^2.6.2",
+    "sitemap-webpack-plugin": "^0.6.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
