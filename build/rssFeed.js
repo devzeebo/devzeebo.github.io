@@ -22,7 +22,7 @@ const feed = new RSS({
 forEach(posts.posts, (it, key) => {
   feed.item({
     title: it.title,
-    url: `https://devzeebo.github.io/posts/${key}`,
+    url: `https://devzeebo.github.io/post/${key}`,
     description: it.description,
   });
 });
