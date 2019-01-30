@@ -3,10 +3,12 @@ module.exports = {
     welcome: 'welcome.md',
     'test-post': 'testPost.md',
     'exceptions-are-exceptional': 'exceptionsAreExceptional.md',
+    'nunit-and-threadlocal': 'nunitAndThreadlocal.md',
   },
   homePage: [
-    'welcome',
+    'nunit-and-threadlocal',
     'exceptions-are-exceptional',
+    'welcome',
   ],
   posts: {},
 };
