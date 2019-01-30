@@ -6,7 +6,10 @@ export default {
     ...state,
     posts: {
       ...state.posts,
-      [action.slug]: action.content,
+      [action.slug]: {
+        ...state.posts[action.slug],
+        content: action.content,
+      },
     },
   }),
 };

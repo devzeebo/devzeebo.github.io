@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const sitemapPaths = require('./build/sitemapPaths');
 
-// require('./build/rssFeed').build();
+require('./build/rssFeed').build();
 
 module.exports = {
   entry: path.resolve(__dirname, 'app/index'),
@@ -27,7 +27,6 @@ module.exports = {
       { from: 'app/404.html' },
       { from: 'posts/*' },
       { from: 'app/robots.txt' },
-      // { from: 'build/rss.xml' },
     ]),
     new SitemapPlugin(
       'https://devzeebo.github.io',

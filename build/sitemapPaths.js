@@ -1,5 +1,5 @@
 const posts = require('../app/posts');
 
 module.exports = () => (
-  Object.keys(posts.postLookup).map(it => `/post/${it}`)
+  Object.keys(posts.posts).map(it => `/post/${it}`)
 );

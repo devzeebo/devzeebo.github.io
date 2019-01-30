@@ -19,15 +19,18 @@ const feed = new RSS({
   ttl: '60',
 });
 
-forEach(posts.postLookup, (it) => {
+forEach(posts.posts, (it, key) => {
   feed.item({
-    description: it,
+    title: it.title,
+    url: `https://devzeebo.github.io/posts/${key}`,
+    description: it.description,
   });
 });
 
 module.exports.build = () => {
-  fs.writeFile(
-    path.resolve(__dirname, 'build', 'rss.xml'),
+  fs.mkdirSync(path.resolve(__dirname, '..', 'dist'));
+  fs.writeFileSync(
+    path.resolve(__dirname, '..', 'dist', 'rss.xml'),
     feed.xml(),
   );
 };
