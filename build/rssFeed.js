@@ -11,7 +11,6 @@ const feed = new RSS({
   feed_url: 'https://devzeebo.github.io/rss.xml',
   site_url: 'https://devzeebo.github.io',
   managingEditor: 'Eric Siebeneich',
-  webMaster: 'Eric Siebeneich',
   copyright: `${new Date().getFullYear()} Eric Siebeneich`,
   language: 'en',
   categories: ['Software', 'Development', 'Programming'],
