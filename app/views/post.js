@@ -28,7 +28,7 @@ class PostComponent extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  content: state.posts[ownProps.slug],
+  content: state.posts[ownProps.slug].content,
 });
 const mapDispatchToProps = dispatch => ({
   loadPost: slug => dispatch(loadPost(slug)),

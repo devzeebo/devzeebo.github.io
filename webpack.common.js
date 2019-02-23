@@ -1,8 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const SitemapPlugin = require('sitemap-webpack-plugin').default;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const sitemapPaths = require('./build/sitemapPaths');
+
+require('./build/rssFeed').build();
 
 module.exports = {
   entry: path.resolve(__dirname, 'app/index'),
@@ -22,7 +26,15 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'app/404.html' },
       { from: 'posts/*' },
+      { from: 'app/robots.txt' },
     ]),
+    new SitemapPlugin(
+      'https://devzeebo.github.io',
+      sitemapPaths(),
+      {
+        lastMod: true,
+      },
+    ),
   ],
   resolve: {
     extensions: ['.js'],

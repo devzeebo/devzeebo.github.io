@@ -4,7 +4,7 @@ import { LOAD_POST } from './actionTypes';
 
 export default slug => (
   (dispatch, getState) => {
-    const filename = getState().postLookup[slug];
+    const { filename } = getState().posts[slug];
     return axios.get(`posts/${filename}`)
       .then((res) => {
         dispatch({
