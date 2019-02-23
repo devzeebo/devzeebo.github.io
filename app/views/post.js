@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 import loadPost from '../actions/loadPost';
-import CodeBlock from '../components/highlight-js/code-block';
+import CodeBlock from '../components/code-block';
 
 const FiraReactMarkdown = styled(ReactMarkdown)`
   code {

@@ -26,16 +26,15 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <Router>
-          <React.Fragment>
-            <Header />
-
+          <>
             <HighlightJs />
+            <Header />
 
             <Switch>
               <Route path="/" exact component={HomeView} />
               <Route path="/post/:slug" exact component={PostView} />
             </Switch>
-          </React.Fragment>
+          </>
         </Router>
       </Provider>
     );

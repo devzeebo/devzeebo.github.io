@@ -10,6 +10,8 @@ const htmlPlugin = new HtmlWebpackPlugin({
   inject: 'head',
 });
 
+require('./build/rssFeed').build();
+
 module.exports = merge(common, {
   mode: 'production',
   plugins: [

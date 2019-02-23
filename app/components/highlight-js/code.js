@@ -1,6 +1,6 @@
-const React = require('react');
+import React from 'react';
 
-class CodeBlock extends React.PureComponent {
+export default class Code extends React.PureComponent {
   componentDidMount() {
     this.highlightCode();
   }
@@ -30,5 +30,3 @@ class CodeBlock extends React.PureComponent {
     );
   }
 }
-
-module.exports = CodeBlock;

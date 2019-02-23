@@ -5,6 +5,11 @@ module.exports = {
     'welcome',
   ],
   posts: {
+    'redux-horizontal-and-vertical-reducers': {
+      title: 'Redux - Horizontal and Vertical Reducers',
+      filename: 'reduxHorizontalAndVerticalReducers.md',
+      description: '',
+    },
     'nunit-and-threadlocal': {
       title: 'NUnit and ThreadLocal',
       filename: 'nunitAndThreadlocal.md',
