@@ -8,6 +8,23 @@ even if the alternative reducer configuration would work better.
 
 ## Reducer Direction
 
+<span>
 I recently had difficulty describing the different reducer configurations to
 a colleague until I explained them in terms of the product stack. Imagine
-you have a standard technical stack:
+you have a standard N-Tier architecture stack:
+</span>
+
+<span>
+
+```mermaid
+graph TD;
+  C[Client]
+  API
+  S[Services]
+  DA[Data Access]
+  C   --- API
+  API --- S
+  S   --- DA
+```
+
+</span>

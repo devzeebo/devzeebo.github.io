@@ -1,10 +1,17 @@
 import React from 'react';
+import Mermaid from 'react-mermaid';
 
-import Mermaid from 'react-mermaid-test-fix';
+import styled from 'styled-components';
+
+const CenteredMermaid = styled(Mermaid)`
+svg {
+  text-align: center;
+}
+`;
 
 const MermaidCode = ({ value }) => console.log(value) || (
-  <Mermaid>
+  <CenteredMermaid>
     {value}
-  </Mermaid>
+  </CenteredMermaid>
 );
 export default MermaidCode;

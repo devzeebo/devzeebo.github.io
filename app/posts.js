@@ -1,5 +1,6 @@
 module.exports = {
   homePage: [
+    'redux-horizontal-and-vertical-reducers',
     'nunit-and-threadlocal',
     'exceptions-are-exceptional',
     'welcome',

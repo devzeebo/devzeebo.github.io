@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-const { IgnorePlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SitemapPlugin = require('sitemap-webpack-plugin').default;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -34,7 +33,6 @@ module.exports = {
         lastMod: true,
       },
     ),
-    new IgnorePlugin(/fs/),
   ],
   resolve: {
     extensions: ['.js'],
