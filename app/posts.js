@@ -9,7 +9,10 @@ module.exports = {
     'redux-horizontal-and-vertical-reducers': {
       title: 'Redux - Horizontal and Vertical Reducers',
       filename: 'reduxHorizontalAndVerticalReducers.md',
-      description: '',
+      description: `Redux reducers are mystifying and often complex pieces
+      of code - but they don't have to be! By decoupling our reducers from
+      the domain logic and tying them to our view logic, we can simplify
+      code, reduce regression risks, and make our project a joy to work in`,
     },
     'nunit-and-threadlocal': {
       title: 'NUnit and ThreadLocal',

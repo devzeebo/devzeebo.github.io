@@ -2,7 +2,7 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SitemapPlugin = require('sitemap-webpack-plugin').default;
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const sitemapPaths = require('./build/sitemapPaths');
 
@@ -15,9 +15,7 @@ module.exports = {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        parallel: true,
-      }),
+      new TerserPlugin({ parallel: true }),
     ],
   },
   plugins: [

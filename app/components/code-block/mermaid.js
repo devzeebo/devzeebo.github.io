@@ -9,7 +9,7 @@ svg {
 }
 `;
 
-const MermaidCode = ({ value }) => console.log(value) || (
+const MermaidCode = ({ value }) => (
   <CenteredMermaid>
     {value}
   </CenteredMermaid>
