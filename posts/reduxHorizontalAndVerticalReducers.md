@@ -6,6 +6,15 @@ ways might be right in certain situations, and often however one decides to
 set up their first Redux project is the way they will set up future projects,
 even if the alternative reducer configuration would work better.
 
+## TL;DR
+
+1. Redux state isn't a relational database, and shouldn't be organized as
+   such
+2. **Reducers**: Decouple from your business logic so that others can
+   interface without requiring regression testing of your usage of them
+3. **Actions**: Tightly couple your business logic so that the code can be
+   reused across multiple views without duplicating code
+
 ## Reducer Direction
 
 I recently had difficulty describing the different reducer configurations to
@@ -147,11 +156,11 @@ Yikes.
 Another sneaky problem surrounds this structure. We have these domain
 specific slices in our reducer we have to interface with via actions. We
 begin by trying to build actions that are tied to the domain, (`createTodo`,
-`markTodoCompleted`, and `editTodo`), but the UI doesn't operate on the
-domain. Occasionally we have to store some UI data in Redux. Lets assume a
-very reasonable request like being able to edit todos in a modal, but
-refreshing the page should keep the modal. Naturally Redux is a great place
-to persist this. We have two options:
+`markTodoCompleted`, and `editTodo`), but the UI isn't organized by shape of
+the domain, and often has extra state that must be stored that isn't part of
+the domain. Lets assume a very reasonable request like being able to edit
+todos in a modal, but refreshing the page should not dismiss the modal.
+Naturally Redux is a great place to persist this. We have two options:
 
 1. Write a new reducer slice to house the UI data which lives next to the
 real domain slices
@@ -185,15 +194,23 @@ during code reviews until it is too late.
 
 ## Vertical Reducers
 
-What if instead we organized our reducers by view/app? We alleviate the many
-of the problems of horizontal reducers by decoupling our app and deployment
-from other apps and organizing data by UI use instead of by domain. We know
-exactly what our view needs, and no one else should have to worry about what
-we're doing or how we're storing our data. If we need to put UI data in Redux
-for some reason, we can spin up a new action/reducer pair that lives in our
-own UI slice rather than trying to squeeze it into an existing domain.
+What if instead we organized our reducers as if they were APIs? Instead of
+coupling to our domain logic, the reducers will provide all the data a
+specific view needs in whatever format it needs it in, _without affecting any
+other view_.
+
+### If another team wants to start interfacing with our code, they just start listening to our actions and, more importantly, _they don't modify our reducers_.
+
+We alleviate the many of the problems of horizontal reducers by decoupling
+our app and deployment from other apps and organizing data by UI usage
+instead of by domain. We know exactly what our view needs, and no one else
+should have to worry about what we're doing or how we're storing our data. If
+we need to put UI data in Redux for some reason, we can spin up a new action
+and edit our little slice of the reducer rather than trying to squeeze it
+into an existing domain.
 
 Instead of the horizontal style, our vertical state might look like:
+
 State:
 ```js
 {
@@ -261,9 +278,30 @@ editTodo: {
   START_EDIT_TODO: ...,
 },
 createTodo: {
-  // nothing because we aren't listening!
+  START_CREATE_TODO: ...,
 }
 ```
 
 Wow. Without even talking about implementation code we can see the structure
 of the different views and what data they require. Additionally, the views
+are decoupled from each other entirely. We can reuse the Edit modal somewhere
+else and know that when we're done and fire the `EDIT_TODO` action,
+everything everywhere else will work as _they_ expect to work.
+
+## Conclusions
+
+In the effort to turn out more features quickly and reduce code duplication,
+we often find ourselves coupling our views to the way our data is structured
+in the database. This can cause a multitude of problems such as unintuitive
+UX choices, increased risk of unrelated regression errors, and code smells.
+Redux is a very powerful tool, and if we use powerful tools incorrectly, we
+get very powerful (and costly!) mistakes. Redux isn't something to be afraid
+of, but needs some thought before rushing in to using it or our code can end
+up in a bad place.
+
+In your next project try out vertically organized reducers. You'll be
+surprised at how natural it feels and how easily you can make changes to
+existing views. The stress-free modification and creation of new views will
+make your next project enjoyable to work in and quicker for new developers to
+get on-boarded as they won't need to understand the entire app to begin
+contributing useful and impactful code.
