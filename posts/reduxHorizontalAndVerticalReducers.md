@@ -199,7 +199,7 @@ coupling to our domain logic, the reducers will provide all the data a
 specific view needs in whatever format it needs it in, _without affecting any
 other view_.
 
-### If another team wants to start interfacing with our code, they just start listening to our actions and, more importantly, _they don't modify our reducers_.
+> If another team wants to start interfacing with our code, they just start listening to our actions and, more importantly, **they don't modify our reducers**
 
 We alleviate the many of the problems of horizontal reducers by decoupling
 our app and deployment from other apps and organizing data by UI usage

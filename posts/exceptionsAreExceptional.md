@@ -138,7 +138,7 @@ Comments could help, but then the code isn't self documenting. The reason for th
 implement the business case. There are 3 different return points from that method, and each one represents
 a partial view of the story. If you compare our implementation with the pseudo code, the difference is apparent:
 
-### _By wrapping our code in `Result<T>`, we assume the exception case is the norm._
+> By wrapping our code in `Result<T>`, we assume the exception case is the norm
 
 By assuming the exception is normal, we clutter up our code by checking each and every result,
 assuming it failed because we can't move on until we've guaranteed that the result _didn't_ fail.
@@ -242,7 +242,7 @@ public void HandleException(ExceptionContext context) {
 }
 ```
 
-### _Exceptional cases should either be explicitly handled or completely ignored_
+> Exceptional cases should either be explicitly handled or completely ignored
 
 In the case of the two user service queries, it probably isn't an error to not have saved shipping information or credit
 cards, so _we shouldn't throw errors if its not an error_. If it isn't exceptional, just return `default` or if you're

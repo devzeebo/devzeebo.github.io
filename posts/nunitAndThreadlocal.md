@@ -86,8 +86,8 @@ calculator in either test, given a different system under test. Imagine
 the chaos when there are mocks being verified involved! So, to prevent
 this we have two options:
 
-1) Don't run our tests in parallel and suffer the performance penalty
-2) Make our tests thread safe.
+1. Don't run our tests in parallel and suffer the performance penalty
+2. Make our tests thread safe.
 
 I wasn't satisfied with option 1 because these are _unit_ tests, not
 integration tests, and should be able to be run in parallel since they're
