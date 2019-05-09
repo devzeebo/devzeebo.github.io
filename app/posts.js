@@ -1,11 +1,21 @@
 module.exports = {
   homePage: [
+    'a-tale-of-two-meetings',
     'redux-horizontal-and-vertical-reducers',
     'nunit-and-threadlocal',
     'exceptions-are-exceptional',
     'welcome',
   ],
   posts: {
+    'a-tale-of-two-meetings': {
+      title: 'A Tale of Two Meetings',
+      filename: 'aTaleOfTwoMeetings.md',
+      description: `When passionate people collide over implementation
+      details, tempers can get out of hand. A perspective piece on
+      identifying aggressive situations and how avoiding escalation can
+      lead to all involved feeling as if they've won and leaving the
+      meeting without regrets`,
+    },
     'redux-horizontal-and-vertical-reducers': {
       title: 'Redux - Horizontal and Vertical Reducers',
       filename: 'reduxHorizontalAndVerticalReducers.md',
@@ -29,7 +39,7 @@ module.exports = {
       description: `The phrase "exceptions are exceptional" sounds like
       common knowledge, but far too often are they misused, feared, or
       ignored. Let's explore a better way to handle errors within our stack
-      and leave our code more expressive along the way.`,
+      and leave our code more expressive along the way`,
     },
     welcome: {
       title: 'Welcome!',
