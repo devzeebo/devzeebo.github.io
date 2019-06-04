@@ -7,6 +7,14 @@ module.exports = {
     'welcome',
   ],
   posts: {
+    'lodash-fp-primer': {
+      title: 'Lodash/fp - A Primer',
+      filename: 'lodashFpPrimer.md',
+      description: `Functional programming doesn't have to be scary. With
+      lodash/fp you can experiment with functional programming in a familiar
+      environment. Before you begin, there are some terms you should learn
+      so that the docs don't scare you away.`,
+    },
     'a-tale-of-two-meetings': {
       title: 'A Tale of Two Meetings',
       filename: 'aTaleOfTwoMeetings.md',
