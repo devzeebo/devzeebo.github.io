@@ -1,5 +1,6 @@
 module.exports = {
   homePage: [
+    'lodash-fp-primer',
     'a-tale-of-two-meetings',
     'redux-horizontal-and-vertical-reducers',
     'nunit-and-threadlocal',
