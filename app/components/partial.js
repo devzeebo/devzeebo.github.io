@@ -12,6 +12,7 @@ const ContentContainer = styled.div`
   overflow: hidden;
   height: min-content;
   max-height: 30em;
+  flex: 1 0 100%;
 `;
 const Overlay = styled.div`
   position: absolute;
