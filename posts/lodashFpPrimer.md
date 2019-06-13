@@ -256,12 +256,83 @@ average them all together to get a class average. Flow makes this easy:
 ```javascript
 const thirdGradeAverage = flow(
   filter({ grade: 3 }),
-  map(max(map('testScores'))),
-  average,
+  map('testScores'),
+  map(max),
+  mean,
 )(allStudents)
+```
+
+Assume we have the following students:
+
+```javascript
+const allStudents = [{
+  name: 'Havoc',
+  testScores: [80, 87, 83],
+  grade: 3
+}, {
+  name: 'Lilah',
+  testScores: [95, 95, 95],
+  grade: 5
+}, {
+  name: 'Bear',
+  testScores: [98, 70, 88],
+  grade: 3
+}]
 ```
 
 Let's break this down:
 * `filter({ grade: 3 })` is going to take in `allStudents` and produce a new
-  array of all students in the third grade
-* `map(max(map('testScores')))`
+  array of all students in the third grade:
+  ```javascript
+  [{
+    name: 'Havoc',
+    testScores: [80, 87, 83],
+    grade: 3
+  }, {
+    name: 'Bear',
+    testScores: [98, 70, 88],
+    grade: 3
+  }]
+  ```
+* `map('testScores')` is going to take those students and map them to their
+  array of test scores
+  ```javascript
+  [
+    [80, 87, 83],
+    [98, 70, 88],
+  ]
+  ```
+* `map(max)` is going to map the arrays by using the `max` function from
+  regular Lodash
+  ```javascript
+  [
+    87,
+    98,
+  ]
+  ```
+* `mean` from the regular Lodash library is going to average the values
+  ```javascript
+  92.5
+  ```
+
+Why did we use regular Lodash functions? This is a tutorial on functional
+Lodash! The answer is that the `max` and `mean` functions just don't have
+functional equivalents because they perform specific calculations and don't
+accept an **iteratee**. You'll notice that `maxBy` and `meanBy` _are_ in the
+Lodash/fp library because they are slightly configurable.
+
+## Conclusions
+
+[The Lodash/fp documents](https://github.com/lodash/lodash/wiki/FP-Guide) are
+terse and to the point, explaining only the differences between the regular
+Lodash and the functional extensions. It assumes you already know the
+language of functional programming and are familiar with the majority of the
+non-functional Lodash library.
+
+While I haven't covered the Lodash library, [those
+docs](https://lodash.com/docs) are incredibly detailed and helpful. Hopefully
+this quick overview of functional language has helped make it not so scary
+and foreign. You can actually start writing functional code without
+Lodash/fp! Just remember to take data last, and
+**Don't. Modify. Data.** Your life in functional land will be so much cleaner
+and friendlier if you don't.
