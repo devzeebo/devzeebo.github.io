@@ -20,6 +20,7 @@ class PostComponent extends React.Component {
   render() {
     return (
       <FiraReactMarkdown
+        escapeHtml={false}
         source={this.props.content}
         className="markdown-body"
         renderers={{ code: CodeBlock }} />

@@ -21,7 +21,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       { from: 'app/404.html' },
-      { from: 'posts/*' },
+      { from: 'posts/**/*' },
       { from: 'app/robots.txt' },
     ]),
     new SitemapPlugin(

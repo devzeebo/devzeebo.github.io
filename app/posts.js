@@ -1,5 +1,6 @@
 module.exports = {
   homePage: [
+    'arch-linux-001-welcome',
     'lodash-fp-primer',
     'a-tale-of-two-meetings',
     'redux-horizontal-and-vertical-reducers',
@@ -8,6 +9,22 @@ module.exports = {
     'welcome',
   ],
   posts: {
+    'arch-linux-002-hyper-v': {
+      title: 'Arch Linux - Hyper-V',
+      filename: 'arch-linux/002.hyperv/index.md',
+      description: `Before grabbing a USB and potentially nuking my working
+      Windows installation, I decided to try installing Arch Linux into a
+      virtual machine to prove to myself I can configure and set it up while
+      I still have a full web browser on my other monitor.`,
+    },
+    'arch-linux-001-welcome': {
+      title: 'Arch Linux - My Slow Descent into Madness',
+      filename: 'arch-linux/001.intro.md',
+      description: `Arch Linux is a bare bones Linux distribution where you
+      are required to set up nearly everything yourself, from partitioning
+      disks to installing windowing toolkits. I have decided to take the
+      plunge into Arch Linux and chronicle my adventures along the way.`,
+    },
     'lodash-fp-primer': {
       title: 'Lodash/fp - A Primer',
       filename: 'lodashFpPrimer.md',
