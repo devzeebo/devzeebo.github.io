@@ -9,6 +9,14 @@ module.exports = {
     'welcome',
   ],
   posts: {
+    'arch-linux-003-partitioning': {
+      title: 'Arch Linux - Partitioning Drives',
+      filename: 'arch-linux/003.partitioning/index.md',
+      description: `Partitioning the drives is the scary part of installing
+      a new OS. One small mistake and I'll erase my boot sector, rendering
+      my Windows install useless. I'm going to test it out on the VM before
+      I run it against my main drive.`,
+    },
     'arch-linux-002-hyper-v': {
       title: 'Arch Linux - Hyper-V',
       filename: 'arch-linux/002.hyperv/index.md',
@@ -19,7 +27,7 @@ module.exports = {
     },
     'arch-linux-001-welcome': {
       title: 'Arch Linux - My Slow Descent into Madness',
-      filename: 'arch-linux/001.intro.md',
+      filename: 'arch-linux/001.intro/index.md',
       description: `Arch Linux is a bare bones Linux distribution where you
       are required to set up nearly everything yourself, from partitioning
       disks to installing windowing toolkits. I have decided to take the
