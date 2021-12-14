@@ -1,0 +1,60 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext",
+            "ES2020.Promise"
+        ],
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "jsx": "react",
+        "noImplicitAny": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "downlevelIteration": true,
+        "baseUrl": ".",
+        "paths": {
+            "#ApplicationState": [
+                "src/components/App/redux/ApplicationState"
+            ],
+            "#api/*": [
+                "src/api/*"
+            ],
+            "#hoc/*": [
+                "src/hoc/*"
+            ],
+            "#components/*": [
+                "src/components/*"
+            ],
+            "#hooks": [
+                "src/hooks"
+            ],
+            "#hooks/*": [
+                "src/hooks/*"
+            ],
+            "#pages/*": [
+                "src/pages/*"
+            ],
+            "#sagas": [
+                "src/sagas"
+            ],
+            "#sagas/*": [
+                "src/sagas/*"
+            ],
+            "#domains/*": [
+                "src/domains/*"
+            ]
+        }
+    },
+    "include": [
+        "./src",
+        "./build",
+        "./webpack.config.ts"
+    ]
+}

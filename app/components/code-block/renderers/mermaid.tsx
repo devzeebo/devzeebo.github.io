@@ -9,7 +9,14 @@ svg {
 }
 `;
 
-const MermaidCode = ({ value }) => (
+export type MermaidCodeProps = {
+  value: string,
+  someThing: boolean,
+}
+
+const MermaidCode = ({
+  value,
+}: MermaidCodeProps) => (
   <CenteredMermaid>
     {value}
   </CenteredMermaid>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -31,7 +31,14 @@ const ReadMore = styled(Link)`
   right: 0;
 `;
 
-const Partial = ({ children, href }) => (
+export type PartialProps = PropsWithChildren<{
+  href: string,
+}>;
+
+const Partial = ({
+  children,
+  href
+}) => (
   <Container>
     <ContentContainer>
       {children}

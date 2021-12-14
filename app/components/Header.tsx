@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { mobile, desktop } from './media';
+import { mobile, desktop } from './Media';
 
 const Container = styled.div`
 
