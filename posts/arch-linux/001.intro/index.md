@@ -1,11 +1,6 @@
+![](https://upload.wikimedia.org/wikipedia/commons/7/74/Arch_Linux_logo.svg)
 
-<h1 style="display: flex; align-items: center;">
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Archlinux-icon-crystal-64.svg"
-    height="200"
-  />
-  Arch Linux - My Slow Descent into Madness
-</h1>
+# My Slow Descent into Madness
 
 So I've recently decided to start dual booting again after playing with
 Docker and [not being satisfied with WSL 2's performance across the virtual

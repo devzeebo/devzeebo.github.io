@@ -1,10 +1,6 @@
-<h1 style="display: flex; align-items: center;">
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Archlinux-icon-crystal-64.svg"
-    height="100"
-  />
-  Arch Linux - Hyper-V
-</h1>
+![](https://upload.wikimedia.org/wikipedia/commons/7/74/Arch_Linux_logo.svg)
+
+# Hyper-V
 
 Hyper-V? I thought you said you were installing Arch!
 
