@@ -1,6 +1,6 @@
 import path from 'path';
 import TsConfigPathsWebpackPlugin from 'tsconfig-paths-webpack-plugin';
-import Webpack from 'webpack';
+import type { Configuration } from 'webpack';
 import plugins from './plugins';
 
 // https://github.com/dividab/tsconfig-paths-webpack-plugin/issues/32
@@ -9,7 +9,10 @@ delete process.env.TS_NODE_PROJECT;
 const srcRoot = path.join(__dirname, '..', 'app');
 const outputDir = path.join(__dirname, '..', 'dist');
 
-const config: Webpack.Configuration = {
+export default (
+  env: any,
+  { mode }: { mode: 'development' | 'production' }
+): Configuration => ({
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
@@ -36,6 +39,7 @@ const config: Webpack.Configuration = {
     root: __dirname,
     srcRoot,
     outputDir,
+    mode,
   }),
   module: {
     rules: [
@@ -60,5 +64,4 @@ const config: Webpack.Configuration = {
       directory: path.join(__dirname, 'dist'),
     },
   },
-};
-export default config;
+});

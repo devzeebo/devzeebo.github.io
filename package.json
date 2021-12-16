@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist",
-    "build": "cross-env TS_NODE_PROJECT=\"./tsconfig.build.json\" webpack --config webpack.config.ts",
+    "build": "cross-env TS_NODE_PROJECT=\"./tsconfig.build.json\" webpack --config webpack.config.ts --mode=development",
+    "build:prod": "npm run build -- --mode=production",
     "start:dev:watch": "cross-env TS_NODE_PROJECT=\"./tsconfig.build.json\" webpack serve --open --config ./webpack.config.ts",
-    "publish": "npm run build:prod && cross-env NODE_DEBUG=gh-pages node ./build/publish.js"
+    "publish": "npm run build:prod && cross-env NODE_DEBUG=gh-pages ts-node ./build/publish.ts"
   },
   "repository": {
     "type": "git",
