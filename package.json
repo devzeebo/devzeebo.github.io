@@ -10,7 +10,8 @@
     "build:prod": "npm run build -- --mode=production",
     "build:rss": "TS_NODE_PROJECT=\"./tsconfig.build.json\" ts-node ./build/rssFeed.ts",
     "start:dev:watch": "TS_NODE_PROJECT=\"./tsconfig.build.json\" webpack serve --open --config ./webpack.config.ts",
-    "publish": "npm run build:prod && NODE_DEBUG=gh-pages TS_NODE_PROJECT=\"./tsconfig.build.json\" ts-node ./build/publish.ts"
+    "publish": "run-s build:prod build:rss publish:ghpages",
+    "publish:ghpages": "NODE_DEBUG=gh-pages TS_NODE_PROJECT=\"./tsconfig.build.json\" ts-node ./build/publish.ts"
   },
   "repository": {
     "type": "git",
