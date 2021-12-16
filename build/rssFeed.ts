@@ -1,9 +1,10 @@
-const RSS = require('rss');
-const fs = require('fs');
-const path = require('path');
-const forEach = require('lodash/forEach');
+import RSS from 'rss';
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import forEach from 'lodash/forEach';
 
-const posts = require('../app/posts');
+import posts from '../app/posts';
 
 const feed = new RSS({
   title: 'devzeebo.github.io',
@@ -15,21 +16,27 @@ const feed = new RSS({
   language: 'en',
   categories: ['Software', 'Development', 'Programming'],
   pubDate: new Date().toISOString(),
-  ttl: '60',
+  ttl: 60,
 });
 
-forEach(posts.posts, (it, key) => {
+forEach(posts.posts.entities, (it: any, key: string) => {
+  const file = path.resolve(__dirname, '..', 'posts', it.filename);
+
+  const datePublished = execSync(`git log -1 --pretty="format:%ci" ${file}`).toString();
+
   feed.item({
+    date: datePublished,
     title: it.title,
     url: `https://devzeebo.github.io/post/${key}`,
     description: it.description,
   });
 });
 
-module.exports.build = () => {
-  fs.mkdirSync(path.resolve(__dirname, '..', 'dist'));
-  fs.writeFileSync(
-    path.resolve(__dirname, '..', 'dist', 'rss.xml'),
-    feed.xml(),
-  );
-};
+const dist = path.resolve(__dirname, '..', 'dist');
+if (!fs.existsSync(dist)) {
+  fs.mkdirSync(dist);
+}
+fs.writeFileSync(
+  path.resolve(__dirname, '..', 'dist', 'rss.xml'),
+  feed.xml(),
+);
