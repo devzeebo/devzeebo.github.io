@@ -36,7 +36,6 @@ const Post = ({
 
   return (
     <FiraReactMarkdown
-      escapeHtml={false}
       className="markdown-body"
       renderers={{ code: CodeBlock }}>
       {content}

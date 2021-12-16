@@ -1,6 +1,6 @@
 export default {
   homePage: [
-    'arch-linux-001-welcome',
+    'hello-again',
     'lodash-fp-primer',
     'a-tale-of-two-meetings',
     'redux-horizontal-and-vertical-reducers',
@@ -11,6 +11,14 @@ export default {
   posts: {
     ids: [],
     entities: {
+      'hello-again': {
+        title: 'Arch Linux - Partitioning Drives',
+        filename: 'helloAgain.md',
+        description: `The pandemic has affected nearly everyone and everything,
+        and this blog got put on the back burner. However, I always intended to
+        come back to this, so let's review what has happened since I paused
+        writing.`,
+      },
       'arch-linux-003-partitioning': {
         title: 'Arch Linux - Partitioning Drives',
         filename: 'arch-linux/003.partitioning/index.md',
