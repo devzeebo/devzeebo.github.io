@@ -12,7 +12,7 @@ export default {
     ids: [],
     entities: {
       'hello-again': {
-        title: 'Arch Linux - Partitioning Drives',
+        title: 'Hello Again!',
         filename: 'helloAgain.md',
         description: `The pandemic has affected nearly everyone and everything,
         and this blog got put on the back burner. However, I always intended to
